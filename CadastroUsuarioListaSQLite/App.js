@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, ScrollView,
 import { styles } from './styles';
 import { useEffect, useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { insertUser, deleteUser, getAllUsers, getUserById, updateUser } from './services/userDbService';
 
 export default function App() {
   const [codigo, setCodigo] = useState('');
@@ -14,25 +15,21 @@ export default function App() {
 
   const [listaUsuarios, setListaUsuario] = useState([]);
 
-  useEffect(() => { }, visualizarSenha);
+  useEffect(() => { }, [visualizarSenha]);
 
   useEffect(() => {
     carregaDados();
-    console.log(listaUsuarios)
-    console.log('Carregou');
   }, []);
 
   async function carregaDados() {
     try {
-      const jsonValue = await AsyncStorage.getItem('@usuariosSalvos')
-      if (jsonValue != null) {
-        const obj = JSON.parse(jsonValue);
-        setListaUsuario(obj);
+      let users = await getAllUsers();
+      if (users != null) {
+        setListaUsuario(users);
       }
       else {
         setListaUsuario([]);
       }
-
     } catch (e) {
       Alert.alert(e.toString());
     }
@@ -49,10 +46,16 @@ export default function App() {
     if (!validar(objeto, confirmacao))
       return;
 
-    setListaUsuario([...listaUsuarios, objeto]);
-    await AsyncStorage.setItem('@usuariosSalvos', JSON.stringify(listaUsuarios));
-    Alert.alert('Salvo com sucesso!');
-    console.log(visualizarSenha);
+    if (listaUsuarios.find(u => u.id == objeto.codigo) != undefined) {
+      console.log('vou fazer update')
+      await updateUser(objeto);
+      await carregaDados();
+    }
+    else {
+      setListaUsuario([...listaUsuarios, objeto]);
+      await insertUser(objeto);
+      Alert.alert('Salvo com sucesso!');
+    }
   }
 
   function validar(objeto, confirmacaoSenha) {
@@ -83,11 +86,6 @@ export default function App() {
       return false;
     }
 
-    if (listaUsuarios.find(u => u.codigo == objeto.codigo) != undefined) {
-      Alert.alert('Já existe um usuário com esse código');
-      return false;
-    }
-
     return true;
   }
 
@@ -100,14 +98,12 @@ export default function App() {
   }
 
   async function carregarUsuario(codigoUsuario) {
-    let usuario = listaUsuarios.find(u => u.codigo == codigoUsuario);
+    let usuario = listaUsuarios.find(u => u.id == codigoUsuario);
 
-    console.log('usuario')
-    console.log(usuario)
     if (usuario == undefined)
       return;
 
-    setCodigo(usuario.codigo);
+    setCodigo(usuario.id);
     setNome(usuario.nome);
     setEmail(usuario.email);
     setSenha(usuario.senha);
@@ -115,8 +111,8 @@ export default function App() {
   }
 
   async function apagaUsuario(codigoUsuario) {
-    setListaUsuario(listaUsuarios.filter(u => u.codigo != codigoUsuario));
-    limpar();
+    await deleteUser(codigoUsuario);
+    await carregaDados();
   }
 
   return (
@@ -159,13 +155,12 @@ export default function App() {
         <View style={styles.listaUsuarios}>
           {
             listaUsuarios.map((usuario, index) => {
-              console.log(usuario);
               return (<View style={styles.containerLista} key={index.toString()}>
                 <Text style={styles.nomeLista}>{usuario.nome}</Text>
-                <TouchableOpacity onPress={async () => await carregarUsuario(usuario.codigo)}>
+                <TouchableOpacity onPress={async () => await carregarUsuario(usuario.id)}>
                   <Text style={styles.itemLista}>📩</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={async () => await apagaUsuario(usuario.codigo)}>
+                <TouchableOpacity onPress={async () => await apagaUsuario(usuario.id)}>
                   <Text style={styles.itemLista}>🗑️</Text>
                 </TouchableOpacity>
               </View>)

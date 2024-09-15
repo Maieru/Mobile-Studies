@@ -4,19 +4,19 @@ let tablesCreated = false
 
 async function getDbConnection() {
     const cx = await SQLite.openDatabaseAsync('dbUsuarios.db');
-    await createTables();
+    await createTables(cx)
     return cx;
 }
 
-async function createTables() {
+async function createTables(cx) {
     if (tablesCreated)
         return;
 
-    await createUserTable();
+    await createUserTable(cx);
     tablesCreated = true;
 }
 
-async function createUserTable() {
+async function createUserTable(cx) {
     const query = `CREATE TABLE IF NOT EXISTS tbUsuarios
             (
                 id text not null primary key,
@@ -24,17 +24,29 @@ async function createUserTable() {
                 email text not null,
                 senha text not null          
             )`;
-    var cx = await getDbConnection();
+
     await cx.execAsync(query);
-    await cx.closeAsync();
 }
 
 export async function executeCommand(query, params) {
     var cx = await getDbConnection();
 
     try {
-        const result = params ? await cx.runAsync(query, params) : await cx.runAsync(query);
+        const result = params ? await cx.runAsync(query, params) : await cx.execAsync(query);
+        console.log(result);
+        return result;
+    }
+    finally {
         await cx.closeAsync();
+    }
+}
+
+export async function getResult(query, params) {
+    var cx = await getDbConnection();
+
+    try {
+        const result = params ? await cx.getAllAsync(query, params) : await cx.getAllAsync(query);
+        console.log(result);
         return result;
     }
     finally {
