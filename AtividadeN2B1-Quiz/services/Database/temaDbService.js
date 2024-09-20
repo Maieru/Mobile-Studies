@@ -1,9 +1,6 @@
-import { executeCommand, getResult } from './dbConnection';
+import { executeCommand, getResult, getFirst } from './dbConnection';
 
-const temaDbService = new TemaDbService();
-export default temaDbService;
-
-class TemaDbService {
+export class TemaDbService {
     constructor() {
         this.tabela = 'tbTemas';
     }
@@ -15,13 +12,13 @@ class TemaDbService {
     }
 
     async getAllTemas() {
-        const query = `select * from ${this.tabela}`;
+        const query = `select * from ${this.tabela}`;   
         return await getResult(query);
     }
 
     async getTemaById(id) {
         const query = `select * from ${this.tabela} where id=?`;
-        return await getResult(query, id);
+        return await getFirst(query, id);
     }
 
     async updateTema(tema) {

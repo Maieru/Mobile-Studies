@@ -1,9 +1,5 @@
 import { executeCommand, getResult } from './dbConnection';
 
-
-const perguntaDbService = new PerguntaDbService();
-export default perguntaDbService;
-
 class PerguntaDbService {
     constructor() {
         this.tabela = 'tbPerguntas';
@@ -27,7 +23,7 @@ class PerguntaDbService {
 
     async getPerguntaById(id) {
         const query = `select * from ${this.tabela} where id=?`;
-        return await getResult(query, id);
+        return await getFirst(query, id);
     }
 
     async updatePergunta(pergunta) {
@@ -42,3 +38,6 @@ class PerguntaDbService {
         return result.changes;
     }
 }
+
+const perguntaDbService = new PerguntaDbService();
+export default perguntaDbService;   

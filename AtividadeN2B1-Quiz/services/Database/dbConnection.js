@@ -3,7 +3,7 @@ import * as SQLite from 'expo-sqlite/next';
 let tablesCreated = false
 
 async function getDbConnection() {
-    const cx = await SQLite.openDatabaseAsync('dbUsuarios.db');
+    const cx = await SQLite.openDatabaseAsync('quizDatabase.db');
     await createTables(cx)
     return cx;
 }
@@ -21,7 +21,7 @@ async function createTemasTable(cx) {
     const query = `CREATE TABLE IF NOT EXISTS tbTemas
             (
                 id int not null primary key,
-                nome text not null,          
+                nome text not null  
             )`;
 
     await cx.execAsync(query);
@@ -49,7 +49,6 @@ export async function executeCommand(query, params) {
 
     try {
         const result = params ? await cx.runAsync(query, params) : await cx.execAsync(query);
-        console.log(result);
         return result;
     }
     finally {
@@ -62,7 +61,18 @@ export async function getResult(query, params) {
 
     try {
         const result = params ? await cx.getAllAsync(query, params) : await cx.getAllAsync(query);
-        console.log(result);
+        return result;
+    }
+    finally {
+        await cx.closeAsync();
+    }
+}
+
+export async function getFirst(query, params) {
+    var cx = await getDbConnection();
+
+    try {
+        const result = params ? await cx.getFirstAsync(query, params) : await cx.getFirstAsync(query);
         return result;
     }
     finally {
