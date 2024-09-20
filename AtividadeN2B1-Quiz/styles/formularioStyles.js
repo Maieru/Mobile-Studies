@@ -13,12 +13,14 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         justifyContent: 'center',
+        backgroundColor: '#fff',
     },
     containerBotaoIncluir: {
         flex: 1,
     },
     containerListagem: {
         flex: 7,
+        width: '100%',
     },
     button: {
         backgroundColor: '#bae6e3',

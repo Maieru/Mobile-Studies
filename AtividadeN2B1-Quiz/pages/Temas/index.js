@@ -2,17 +2,18 @@ import { styles } from '../../styles/formularioStyles';
 import { useEffect, useState } from 'react';
 import { TemaDbService } from '../../services/Database/temaDbService';
 import { StyleSheet, Text, Touchable, TouchableOpacity, View, FlatList } from 'react-native';
+import Listagem from '../../components/listagem';
 
 export default function ListarTemas({ route, navigation }) {
 
     const [temas, setTemas] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            let temaDbService = new TemaDbService();
-            setTemas(await temaDbService.getAllTemas());
-        }
+    const fetchData = async () => {
+        let temaDbService = new TemaDbService();
+        setTemas(await temaDbService.getAllTemas());
+    }
 
+    useEffect(() => {
         fetchData();
 
         return () => { };
@@ -27,15 +28,9 @@ export default function ListarTemas({ route, navigation }) {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.containerListagem}>
-                    <FlatList
-                        data={temas}
-                        renderItem={({ item }) => (
-                            <View style={styles.item}>
-                                <Text style={styles.itemText}>{item.nome}</Text>
-                            </View>
-                        )}
-                        keyExtractor={item => item.id}
-                    />
+                    <Listagem dados={temas}
+                        seletorDescricao={elemento => `${elemento.id} - ${elemento.nome}`}
+                        seletorId={elemento => elemento.id}></Listagem>
                 </View>
             </View>
         </View>

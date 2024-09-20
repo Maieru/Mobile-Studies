@@ -4,7 +4,7 @@ let tablesCreated = false
 
 async function getDbConnection() {
     const cx = await SQLite.openDatabaseAsync('quizDatabase.db');
-    await createTables(cx)
+    await createTables(cx);
     return cx;
 }
 
