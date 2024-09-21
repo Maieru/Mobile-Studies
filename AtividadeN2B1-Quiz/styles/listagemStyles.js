@@ -29,8 +29,18 @@ export const styles = StyleSheet.create({
         backgroundColor: '#bae6e3',
         borderRadius: 5,
     },
+    deleteButton: {
+        marginTop: 5,
+        padding: 10,
+        backgroundColor: '#d55',
+        borderRadius: 5,
+    },
     buttonText: {
         color: '#000',
+        textAlign: 'center',
+    },
+    deleteButtonText: {
+        color: '#fff',
         textAlign: 'center',
     },
     espacamento: {
