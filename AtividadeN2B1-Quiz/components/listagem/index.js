@@ -15,6 +15,7 @@ export default function Listagem({ dados, seletorDescricao, seletorId, onEditar,
                     </TouchableOpacity>
                 </View>
             ))}
+            <View style={styles.espacamento}></View>
         </ScrollView>
     );
 }

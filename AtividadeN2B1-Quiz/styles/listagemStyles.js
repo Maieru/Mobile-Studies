@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     container: {
         padding: 10,
         backgroundColor: '#fff',
-        marginBottom: 50,
+        height: '100%',
     },
     item: {
         marginBottom: 10,
@@ -13,11 +13,11 @@ export const styles = StyleSheet.create({
         borderRadius: 5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
+        shadowOpacity: 0.3,
+        shadowRadius: 15,
         elevation: 3,
-        borderColor: '#ddd',
-        borderWidth: 0.5,
+        borderColor: '#bae6e3',
+        borderWidth: 2,
     },
     text: {
         fontSize: 16,
@@ -33,4 +33,7 @@ export const styles = StyleSheet.create({
         color: '#000',
         textAlign: 'center',
     },
+    espacamento: {
+        margin: 50,
+    }
 });

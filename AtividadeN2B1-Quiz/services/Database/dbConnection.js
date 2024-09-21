@@ -5,6 +5,7 @@ let tablesCreated = false
 async function getDbConnection() {
     const cx = await SQLite.openDatabaseAsync('quizDatabase.db');
     await createTables(cx);
+    cx.isOpen = true;
     return cx;
 }
 
@@ -15,7 +16,7 @@ async function createTables(cx) {
     await createTemasTable(cx);
     await createPerguntasTable(cx);
     tablesCreated = true;
-}
+} 
 
 async function createTemasTable(cx) {
     const query = `CREATE TABLE IF NOT EXISTS tbTemas
@@ -46,36 +47,45 @@ async function createPerguntasTable(cx) {
 
 export async function executeCommand(query, params) {
     var cx = await getDbConnection();
-
     try {
         const result = params ? await cx.runAsync(query, params) : await cx.execAsync(query);
         return result;
     }
     finally {
-        await cx.closeAsync();
+        await closeConnection(cx);
     }
 }
 
 export async function getResult(query, params) {
     var cx = await getDbConnection();
-
     try {
         const result = params ? await cx.getAllAsync(query, params) : await cx.getAllAsync(query);
         return result;
     }
     finally {
-        await cx.closeAsync();
+        await closeConnection(cx);
     }
 }
 
 export async function getFirst(query, params) {
     var cx = await getDbConnection();
-
     try {
         const result = params ? await cx.getFirstAsync(query, params) : await cx.getFirstAsync(query);
         return result;
     }
     finally {
-        await cx.closeAsync();
+        await closeConnection(cx);
+    }
+}
+
+async function closeConnection(cx) {
+    if (cx && cx.isOpen) {
+        try {
+            await cx.closeAsync();
+            cx.isOpen = false;
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 }

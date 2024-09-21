@@ -1,6 +1,6 @@
-import { executeCommand, getResult } from './dbConnection';
+import { executeCommand, getResult, getFirst } from './dbConnection';
 
-class PerguntaDbService {
+export class PerguntaDbService {
     constructor() {
         this.tabela = 'tbPerguntas';
     }
@@ -34,10 +34,13 @@ class PerguntaDbService {
 
     async deletePergunta(id) {
         const query = `delete from ${this.tabela} where id=?`;
-        const result = await getResult(query, id);
+        const result = await executeCommand(query, id);
         return result.changes;
     }
-}
 
-const perguntaDbService = new PerguntaDbService();
-export default perguntaDbService;   
+    async getNextAvailableId() {
+        const query = `select max(id) as id from ${this.tabela}`;
+        const result = await getFirst(query);
+        return parseInt(result.id) + 1;
+    }
+}

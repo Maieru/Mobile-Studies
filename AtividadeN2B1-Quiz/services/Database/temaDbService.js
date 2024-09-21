@@ -29,7 +29,13 @@ export class TemaDbService {
 
     async deleteTema(id) {
         const query = `delete from ${this.tabela} where id=?`;
-        const result = await getResult(query, id);
+        const result = await executeCommand(query, id);
         return result.changes;
+    }
+
+    async getNextAvailableId() {
+        const query = `select max(id) as id from ${this.tabela}`;
+        const result = await getFirst(query);
+        return parseInt(result.id) + 1;
     }
 }
