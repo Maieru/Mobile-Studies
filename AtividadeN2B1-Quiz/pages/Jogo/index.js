@@ -40,7 +40,7 @@ export default function MenuJogar({ route, navigation }) {
         const perguntasSelecionadas = selecionarPerguntasAleatorias(perguntasPorTema, parseInt(quantidadePerguntas, 10));
 
         console.log('perguntas:' + JSON.stringify(perguntasSelecionadas))
-        //navigation.navigate('TemaForm', { perguntas: perguntasSelecionadas });
+        navigation.navigate('Questionario', { perguntas: perguntasSelecionadas });
         Alert.alert('Iniciando questionário!');
     }
 
