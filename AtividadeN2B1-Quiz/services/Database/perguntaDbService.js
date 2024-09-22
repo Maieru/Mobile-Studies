@@ -43,4 +43,10 @@ export class PerguntaDbService {
         const result = await getFirst(query);
         return parseInt(result.id) + 1;
     }
+
+    async getQuantidadePerguntaByTema(temaId) {
+        const query = `SELECT COUNT(*) as quantidade FROM ${this.tabela} WHERE temaId = ?`;
+        const result = await getResult(query, temaId);
+        return result;
+    }
 }

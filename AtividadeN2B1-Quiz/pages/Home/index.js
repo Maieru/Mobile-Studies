@@ -7,7 +7,7 @@ export default function Home({ route, navigation }) {
         <View style={styles.container}>
             <View style={styles.containerComMargin}>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MenuJogar')}>
                     <Text style={styles.buttonText}>Iniciar Novo Jogo</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ListarTemas')}>
