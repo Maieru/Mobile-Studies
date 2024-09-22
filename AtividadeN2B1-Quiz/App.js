@@ -6,6 +6,7 @@ import TemaForm from './pages/Temas/form';
 import PerguntasForms from './pages/Perguntas/form';
 import MenuJogar from './pages/Jogo/index';
 import Questionario from './pages/Jogo/questionario';
+import Resultados from './pages/Resultados/index';
 import { StyleSheet, Text, Touchable, TouchableOpacity, View, TextInput } from 'react-native';
 
 const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="PerguntasForms" component={PerguntasForms} options={{ headerBackVisible: true, }} />
         <Stack.Screen name="MenuJogar" component={MenuJogar} options={{ headerBackVisible: true, }} />
         <Stack.Screen name="Questionario" component={Questionario} options={{ headerBackVisible: false, }} />
+        <Stack.Screen name="Resultados" component={Resultados} options={{ headerBackVisible: false, }} />
       </Stack.Navigator>
     </NavigationContainer >
   );
