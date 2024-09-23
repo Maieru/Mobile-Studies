@@ -35,4 +35,13 @@ export const styles = StyleSheet.create({
         marginBottom: 5,
         color: '#333',
     },
+    button: {
+        backgroundColor: '#bae6e3',
+        width: '90%',
+        padding: 10,
+        margin: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
 });

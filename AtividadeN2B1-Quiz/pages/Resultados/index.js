@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { styles } from '../../styles/resultadoStyles';
 
 export default function Resultados({ route, navigation }) {
@@ -15,6 +15,9 @@ export default function Resultados({ route, navigation }) {
                 <Text style={styles.summaryText}>Total de Perguntas: {totalPerguntas}</Text>
                 <Text style={styles.summaryText}>Acertos: {acertos} ({percentualAcertos}%)</Text>
             </View>
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText} onPress={() => navigation.navigate("Home")}>Retornar para Tela Principal</Text>
+            </TouchableOpacity>
             <ScrollView>
                 {respostas.map((resposta, index) => (
                     <View key={index} style={styles.resultadoContainer}>

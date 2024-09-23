@@ -80,32 +80,32 @@ export default function Questionario({ route, navigation }) {
                 <Text style={styles.label}>{perguntaAtual.textoPergunta}</Text>
             </View>
             <TouchableOpacity onPress={() => handleClick(1)}>
-                <View style={styles.alternativaContainer}>
+                <View style={respostaEscolhida == 1 ? styles.alternativaSelecionada : styles.alternativaContainer}>
                     <Text style={styles.label}>Alternativa 1</Text>
                     <Text style={styles.label}>{perguntaAtual.alternativa1}</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleClick(2)}>
-                <View style={styles.alternativaContainer}>
+                <View style={respostaEscolhida == 2 ? styles.alternativaSelecionada : styles.alternativaContainer}>
                     <Text style={styles.label}>Alternativa 2</Text>
                     <Text style={styles.label}>{perguntaAtual.alternativa2}</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleClick(3)}>
-                <View style={styles.alternativaContainer}>
+                <View style={respostaEscolhida == 3 ? styles.alternativaSelecionada : styles.alternativaContainer}>
                     <Text style={styles.label}>Alternativa 3</Text>
                     <Text style={styles.label}>{perguntaAtual.alternativa3}</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleClick(4)}>
-                <View style={styles.alternativaContainer}>
+                <View style={respostaEscolhida == 4 ? styles.alternativaSelecionada : styles.alternativaContainer}>
                     <Text style={styles.label}>Alternativa 4</Text>
                     <Text style={styles.label}>{perguntaAtual.alternativa4}</Text>
                 </View>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={salvarResposta}>
-                <Text style={styles.buttonText}>Salvar alternativa: {respostaEscolhida}</Text>
+                <Text style={styles.buttonText}>Salvar alternativa</Text>
             </TouchableOpacity>
         </View>
     );

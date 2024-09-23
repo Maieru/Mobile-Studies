@@ -70,4 +70,14 @@ export const styles = StyleSheet.create({
         alignContent: 'center',
         marginVertical: 15,
     },
+    alternativaSelecionada: {
+        borderColor: '#000',
+        borderWidth: 2,
+        borderRadius: 10,
+        backgroundColor: '#bae6e3',
+        width: '90%',
+        alignSelf: 'center',
+        alignContent: 'center',
+        marginVertical: 15,
+    }
 });
