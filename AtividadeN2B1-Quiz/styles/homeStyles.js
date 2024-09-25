@@ -22,5 +22,9 @@ export const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 20,
-    }
+    },
+    logo: {
+        width: 400,
+        height: 400,
+    },
 });

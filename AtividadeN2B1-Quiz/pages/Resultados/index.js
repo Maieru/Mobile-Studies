@@ -17,7 +17,7 @@ export default function Resultados({ route, navigation }) {
             </View>
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText} onPress={() => navigation.navigate("Home")}>Retornar para Tela Principal</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> 
             <ScrollView>
                 {respostas.map((resposta, index) => (
                     <View key={index} style={styles.resultadoContainer}>

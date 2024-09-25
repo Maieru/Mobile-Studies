@@ -20,13 +20,13 @@ export default function App() {
           fontWeight: 'bold', // Estilo do texto do título
         },
       }}>
-        <Stack.Screen name="Home" component={Home} options={{ headerBackVisible: false, }} />
-        <Stack.Screen name="ListarTemas" component={ListarTemas} options={{ headerBackVisible: true, }} />
-        <Stack.Screen name="TemaForm" component={TemaForm} options={{ headerBackVisible: true, }} />
-        <Stack.Screen name="PerguntasForms" component={PerguntasForms} options={{ headerBackVisible: true, }} />
-        <Stack.Screen name="MenuJogar" component={MenuJogar} options={{ headerBackVisible: true, }} />
-        <Stack.Screen name="Questionario" component={Questionario} options={{ headerBackVisible: false, }} />
-        <Stack.Screen name="Resultados" component={Resultados} options={{ headerBackVisible: false, }} />
+        <Stack.Screen name="Home" component={Home} options={{ headerBackVisible: false, title: "Tela inicial" }} />
+        <Stack.Screen name="ListarTemas" component={ListarTemas} options={{ headerBackVisible: true, title: "Listar temas" }} />
+        <Stack.Screen name="TemaForm" component={TemaForm} options={{ headerBackVisible: true, title: "Formulário de temas"}} />
+        <Stack.Screen name="PerguntasForms" component={PerguntasForms} options={{ headerBackVisible: true, title: "Formulário de perguntas"}} />
+        <Stack.Screen name="MenuJogar" component={MenuJogar} options={{ headerBackVisible: true, title: "Configurações do jogo"}} />
+        <Stack.Screen name="Questionario" component={Questionario} options={{ headerBackVisible: false, title: "Questão"}} />
+        <Stack.Screen name="Resultados" component={Resultados} options={{ headerBackVisible: false, title: "Resultados"}} />
       </Stack.Navigator>
     </NavigationContainer >
   );
