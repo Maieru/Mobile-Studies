@@ -31,7 +31,7 @@ async function createTemasTable(cx) {
 async function createPerguntasTable(cx) {
     const query = `CREATE TABLE IF NOT EXISTS tbPerguntas
             (
-                id text not null primary key,
+                id int not null primary key,
                 textoPergunta text not null,
                 alternativa1 text not null,
                 alternativa2 text not null,
