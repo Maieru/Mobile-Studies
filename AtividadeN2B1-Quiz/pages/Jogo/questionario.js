@@ -26,8 +26,8 @@ export default function Questionario({ route, navigation }) {
 
         const respostaAtual = {
             pergunta: perguntaAtual.textoPergunta,
-            alternativaEscolhida: respostaEscolhida,
-            alternativaCorreta: perguntaAtual.alternativaCorreta,
+            alternativaEscolhida: recuperaTextoAlternativa(respostaEscolhida),
+            alternativaCorreta: recuperaTextoAlternativa(perguntaAtual.alternativaCorreta),
             acertou: acertou
         };
 
@@ -48,6 +48,19 @@ export default function Questionario({ route, navigation }) {
             return novasRespostas;
         });
     };
+
+    const recuperaTextoAlternativa = (indice) => {
+        switch (indice) {
+            case 1:
+                return perguntaAtual.alternativa1;
+            case 2:
+                return perguntaAtual.alternativa2;
+            case 3:
+                return perguntaAtual.alternativa3;
+            case 4:
+                return perguntaAtual.alternativa4;
+        }
+    }
 
     const avancarParaProxima = (novasRespostas) => {
         if (indiceAtual + 1 < perguntas.length) {

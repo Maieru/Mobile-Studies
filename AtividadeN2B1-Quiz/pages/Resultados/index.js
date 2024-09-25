@@ -17,13 +17,13 @@ export default function Resultados({ route, navigation }) {
             </View>
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText} onPress={() => navigation.navigate("Home")}>Retornar para Tela Principal</Text>
-            </TouchableOpacity> 
+            </TouchableOpacity>
             <ScrollView>
                 {respostas.map((resposta, index) => (
                     <View key={index} style={styles.resultadoContainer}>
                         <Text style={styles.label}>Pergunta: {resposta.pergunta}</Text>
-                        <Text style={styles.label}>Sua Resposta: Alternativa {resposta.alternativaEscolhida}</Text>
-                        <Text style={styles.label}>Resposta Correta: Alternativa {resposta.alternativaCorreta}</Text>
+                        <Text style={styles.label}>Sua Resposta: {resposta.alternativaEscolhida}</Text>
+                        <Text style={styles.label}>Resposta Correta: {resposta.alternativaCorreta}</Text>
                         <Text style={styles.label}>Resultado: {resposta.acertou ? "Acertou" : "Errou"}</Text>
                     </View>
                 ))}
