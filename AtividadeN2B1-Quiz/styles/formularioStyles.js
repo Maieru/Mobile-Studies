@@ -61,18 +61,17 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     pickerContainer: {
+        height: 40,
+        width: '100%',
         borderColor: '#bae6e3',
         borderWidth: 2,
         borderRadius: 10,
         marginBottom: 10,
-        width: '100%',
-        paddingTop: 0,
-        padding: 5,
-        paddingBottom: 15,
-        
+        backgroundColor: '#fff',
+        justifyContent: 'center',
     },
     picker: {
         height: 40,
-        backgroundColor: '#fff',
+        width: '100%',
     },
 });
