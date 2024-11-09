@@ -23,7 +23,8 @@ class AlunoController {
     }
 
     async delete(req, res) {
-        await AlunoModel.findOneAndDelete({ "ra": req.params.id })
+        console.log(req.params.ra);
+        await AlunoModel.findOneAndDelete({ "ra": req.params.ra })
             .then(response => { return res.status(200).json(response) })
             .catch(error => { return res.status(500).json(error) });
     }

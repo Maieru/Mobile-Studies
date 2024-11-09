@@ -1,5 +1,5 @@
 {
-  "name": "gerenciamentolanches",
+  "name": "cadastrousuario",
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
   "scripts": {
@@ -9,10 +9,22 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-picker/picker": "2.7.5",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native-stack": "^6.11.0",
+    "async-storage": "^0.1.0",
+    "axios": "^1.7.7",
     "expo": "~51.0.28",
+    "expo-image-picker": "~15.0.7",
+    "expo-sqlite": "~14.0.6",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
-    "react-native": "0.74.5"
+    "react-native": "0.74.5",
+    "react-native-image-picker": "^7.1.2",
+    "react-native-picker-select": "^9.3.1",
+    "react-native-safe-area-context": "4.10.5",
+    "react-native-screens": "3.31.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
