@@ -7,14 +7,14 @@ import { useFocusEffect } from '@react-navigation/native';
 import DateTimeInput from '../../components/DateTimeInput/index';
 import { format } from 'date-fns';
 
-export default function ListarSolicitacoes({ route, navigation }) {
+export default function EntregarLanche({ route, navigation }) {
     const [solicitacoes, setSolicitacoes] = useState([]);
     const [data, setData] = useState(new Date());
 
     const fetchData = async () => {
         var alunosSalvos = await apiClient.get('/aluno/filter/getAll');
 
-        var solicitacoesSalvas = await apiClient.get('/solicitacaoLanche/filter/getAllFromDate/' + format(data, 'yyyy-MM-dd'));
+        var solicitacoesSalvas = await apiClient.get('/solicitacaoLanche/filter/getAllFromDateNaoEntregue/' + format(data, 'yyyy-MM-dd'));
 
         if (alunosSalvos) {
             solicitacoesSalvas.data.forEach(element => {
@@ -48,21 +48,22 @@ export default function ListarSolicitacoes({ route, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.containerComMargin}>
-                <View style={styles.containerBotaoIncluir}>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SolicitacaoForm')}>
-                        <Text style={styles.buttonText}>Incluir Solicitação</Text>
-                    </TouchableOpacity>
-                </View>
                 <View style={styles.containerListagem}>
                     <DateTimeInput type={'date'} onSave={setData} theDate={data} />
                     <Listagem dados={solicitacoes}
                         seletorDescricao={elemento => `${elemento.dataLiberacao} - ${elemento.nomeAluno} - Qtd. ${elemento.quantidadeLanches}`}
                         seletorId={elemento => elemento.ra}
-                        onEditar={elemento => navigation.navigate('SolicitacaoForm', { solicitacaoEditando: elemento })}
-                        onExcluir={async elemento => {
-                            await apiClient.delete(`/solicitacaoLanche/${elemento.id}`);
-                            fetchData();
-                        }}></Listagem>
+                        onEditar={async elemento => {
+                            var resposta = await apiClient.patch(`/solicitacaoLanche/setLancheEntregue/${elemento.id}`);
+
+                            if (!(resposta && resposta.status && resposta.status == 200)) {
+                                Alert.alert("Erro!", "Não foi possível salvar a solicitação.");
+                            }
+
+                            await fetchData();
+                        }}
+                        possuiExclusao={false}
+                        textoBotaoEdicao='Marcar como Entregue'></Listagem>
                 </View>
             </View>
         </View>

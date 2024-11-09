@@ -12,6 +12,7 @@ export default function SolicitacaoForm({ route, navigation }) {
     const [quantidadeLanches, setQuantidadeLanches] = useState(0);
     const [codigoAluno, setCodigoAluno] = useState(0);
     const [imagemAtual, setImagemAtual] = useState('')
+    const [lancheEntregue, setLancheEntregue] = useState(false);
 
     const [edicao, setEdicao] = useState(false);
     const [alunos, setAlunos] = useState([]);
@@ -33,6 +34,8 @@ export default function SolicitacaoForm({ route, navigation }) {
             setData(new Date(route.params.solicitacaoEditando.dataLiberacao));
             setQuantidadeLanches(route.params.solicitacaoEditando.quantidadeLanches);
             setCodigoAluno(route.params.solicitacaoEditando.codigoAluno);
+            setLancheEntregue(route.params.solicitacaoEditando.lancheEntregue);
+
             setEdicao(true);
         }
     }, []);
@@ -56,6 +59,19 @@ export default function SolicitacaoForm({ route, navigation }) {
             }
         } else {
             var resposta = await apiClient.post('/solicitacaoLanche', solicitacao);
+
+            if (resposta && resposta.status && resposta.status == 200) {
+                navigation.navigate('ListarSolicitacoes');
+            }
+            else {
+                Alert.alert("Erro!", "Não foi possível salvar a solicitação.");
+            }
+        }
+    }
+
+    async function marcarComoEntregue() {
+        if (edicao) {
+            var resposta = await apiClient.patch(`/solicitacaoLanche/setLancheEntregue/${id}`);
 
             if (resposta && resposta.status && resposta.status == 200) {
                 navigation.navigate('ListarSolicitacoes');
@@ -102,6 +118,13 @@ export default function SolicitacaoForm({ route, navigation }) {
                     <TouchableOpacity style={formularioStyles.button} onPress={async () => await salvar()}>
                         <Text style={formularioStyles.buttonText}>Salvar</Text>
                     </TouchableOpacity>
+                    {
+                        edicao &&
+                        !lancheEntregue &&
+                        <TouchableOpacity style={formularioStyles.button} onPress={async () => await marcarComoEntregue()}>
+                            <Text style={formularioStyles.buttonText}>Marcar Como Entregue</Text>
+                        </TouchableOpacity>
+                    }
                 </View>
             </View>
         </View>

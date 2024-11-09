@@ -33,6 +33,10 @@ class ApiService {
         return await this.axiousService.put(url, data).catch(error => { this.trataErro(error) });
     }
 
+    async patch(url, data) {
+        return await this.axiousService.patch(url, data).catch(error => { this.trataErro(error) });
+    }
+
     trataErro(erro) {
         var mensagemErro = ''
         mensagemErro += erro.toString();

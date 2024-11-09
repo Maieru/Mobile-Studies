@@ -1,7 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, ScrollView, View, Alert } from 'react-native';
 import { styles } from '../../styles/listagemStyles';
 
-export default function Listagem({ dados, seletorDescricao, seletorId, onEditar, onExcluir }) {
+export default function Listagem({ dados, seletorDescricao, seletorId, onEditar, onExcluir,
+    possuiExclusao = true, possuiEdicao = true, textoBotaoEdicao = 'Editar', textoBotaoExclusao = 'Excluir' }) {
     const confirmarExclusao = (element) => {
         Alert.alert(
             "Confirmação",
@@ -25,12 +26,18 @@ export default function Listagem({ dados, seletorDescricao, seletorId, onEditar,
             {dados.map((element, index) => (
                 <View key={seletorId(element)} style={styles.item}>
                     <Text style={styles.text}>{seletorDescricao(element)}</Text>
-                    <TouchableOpacity style={styles.button} onPress={() => onEditar(element)}>
-                        <Text style={styles.buttonText}>Editar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.deleteButton} onPress={() => confirmarExclusao(element)}>
-                        <Text style={styles.deleteButtonText}>Excluir</Text>
-                    </TouchableOpacity>
+                    {
+                        possuiEdicao &&
+                        <TouchableOpacity style={styles.button} onPress={() => onEditar(element)}>
+                            <Text style={styles.buttonText}>{textoBotaoEdicao}</Text>
+                        </TouchableOpacity>
+                    }
+                    {
+                        possuiExclusao &&
+                        <TouchableOpacity style={styles.deleteButton} onPress={() => confirmarExclusao(element)}>
+                            <Text style={styles.deleteButtonText}>{textoBotaoExclusao}</Text>
+                        </TouchableOpacity>
+                    }
                 </View>
             ))}
             <View style={styles.espacamento}></View>

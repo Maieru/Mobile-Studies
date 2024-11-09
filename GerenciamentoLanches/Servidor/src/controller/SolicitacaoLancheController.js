@@ -51,6 +51,32 @@ class SolicitacaoLancheController {
         }
     }
 
+    async getAllFromDateNaoEntregue(req, res) {
+        try {
+            const { dataLiberacao } = req.params;
+            const solicitacoes = await SolicitacaoLancheModel.find({
+                dataLiberacao,
+                lancheEntregue: false
+            });
+            return res.status(200).json(solicitacoes);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
+
+    async getAllFromDateEntregue(req, res) {
+        try {
+            const { dataLiberacao } = req.params;
+            const solicitacoes = await SolicitacaoLancheModel.find({
+                dataLiberacao,
+                lancheEntregue: true
+            });
+            return res.status(200).json(solicitacoes);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
+
     async setLancheEntregue(req, res) {
         try {
             const { id } = req.params;

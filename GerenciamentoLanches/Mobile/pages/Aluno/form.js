@@ -34,7 +34,8 @@ export default function AlunoForm({ route, navigation }) {
         } else if (result.error) {
             console.log('ImagePicker Error: ', result.error);
         } else {
-            const source = { uri: result.assets[0].base64.uri };
+            const source = result.assets[0].base64;
+            console.log(source);
             setImagem(source);
         }
     };
@@ -43,7 +44,7 @@ export default function AlunoForm({ route, navigation }) {
         const aluno = {
             ra: ra,
             nome: nome,
-            foto: imagem.uri
+            foto: imagem
         };
 
         if (edicao) {

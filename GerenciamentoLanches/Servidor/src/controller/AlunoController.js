@@ -30,7 +30,7 @@ class AlunoController {
     }
 
     async getAll(req, res) {
-        await AlunoModel.find().sort('nome')
+        await AlunoModel.find().sort('ra')
             .then(response => { return res.status(200).json(response) })
             .catch(error => { return res.status(500).json(error) });
     }

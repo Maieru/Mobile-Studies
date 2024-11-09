@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
         fontSize: 20,
     },
     logo: {
-        width: 400,
-        height: 400,
+        width: 310,
+        height: 250,
     },
 });
