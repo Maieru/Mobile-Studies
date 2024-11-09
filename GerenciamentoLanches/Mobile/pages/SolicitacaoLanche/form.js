@@ -3,10 +3,12 @@ import { styles as formularioStyles } from '../../styles/formularioStyles';
 import React, { useState, useEffect } from 'react';
 import apiClient from '../../services/apiService';
 import { Picker } from '@react-native-picker/picker';
+import DateTimeInput from '../../components/DateTimeInput/index';
+import { format } from 'date-fns';
 
 export default function SolicitacaoForm({ route, navigation }) {
     const [id, setId] = useState(0);
-    const [data, setData] = useState('');
+    const [data, setData] = useState(new Date());
     const [quantidadeLanches, setQuantidadeLanches] = useState(0);
     const [codigoAluno, setCodigoAluno] = useState(0);
     const [imagemAtual, setImagemAtual] = useState('')
@@ -28,7 +30,7 @@ export default function SolicitacaoForm({ route, navigation }) {
 
         if (route.params && route.params.solicitacaoEditando) {
             setId(route.params.solicitacaoEditando.id);
-            setData(route.params.solicitacaoEditando.dataLiberacao);
+            setData(new Date(route.params.solicitacaoEditando.dataLiberacao));
             setQuantidadeLanches(route.params.solicitacaoEditando.quantidadeLanches);
             setCodigoAluno(route.params.solicitacaoEditando.codigoAluno);
             setEdicao(true);
@@ -38,7 +40,7 @@ export default function SolicitacaoForm({ route, navigation }) {
     async function salvar() {
         const solicitacao = {
             id: id,
-            dataLiberacao: data,
+            dataLiberacao: format(data, 'yyyy-MM-dd'),
             codigoAluno: codigoAluno,
             quantidadeLanches: quantidadeLanches
         };
@@ -82,7 +84,7 @@ export default function SolicitacaoForm({ route, navigation }) {
                     <Text style={formularioStyles.label}>Codigo</Text>
                     <TextInput style={formularioStyles.textInput} onChangeText={text => setId(text)} value={id.toString()} keyboardType='numeric'></TextInput>
                     <Text style={formularioStyles.label}>Data Liberação</Text>
-                    <TextInput style={formularioStyles.textInput} onChangeText={text => setData(text)} value={data}></TextInput>
+                    <DateTimeInput type={'date'} onSave={setData} theDate={data} />
                     <Text style={formularioStyles.label}>Quantidade Lanches</Text>
                     <TextInput style={formularioStyles.textInput} onChangeText={text => setQuantidadeLanches(text)} value={quantidadeLanches.toString()} keyboardType='numeric'></TextInput>
                     <Text style={formularioStyles.label}>Aluno</Text>
